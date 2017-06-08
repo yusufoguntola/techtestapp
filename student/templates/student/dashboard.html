@@ -1,0 +1,115 @@
+{% extends 'base/main_manager.html' %}
+{% load staticfiles %}
+
+{% block page_title %}Dashboard{% endblock %}
+{% block bread_crumb %}
+    <li><a href="{% url 'account:dashboard' %}">Dashboard</a></li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+
+            <ul class="app-feature-gallery app-feature-gallery-noshadow margin-bottom-0">
+                <li>
+                    <!-- START WIDGET -->
+                    <div class="app-widget-tile">
+                        <div class="line">
+                            <div class="title">Staff</div>
+                            <div class="pull-right text-success"><i style="font-size: 30px" class="fa fa-users"
+                                                                    aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="intval">{{ staffs.count }}</div>
+                        <div class="line">
+                            <div class="subtitle">Number of staff registered</div>
+                            <div class="subtitle pull-right text-success"></div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET -->
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-md-3">
+
+            <ul class="app-feature-gallery app-feature-gallery-noshadow margin-bottom-0">
+                <li>
+                    <!-- START WIDGET -->
+                    <div class="app-widget-tile">
+                        <div class="line">
+                            <div class="title">Courses</div>
+                            <div class="pull-right text-info"><i style="font-size: 30px" class="fa fa-book"
+                                                                 aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="intval">{{ courses.count }}</div>
+                        <div class="line">
+                            <div class="subtitle">Number of courses registered</div>
+                            <div class="subtitle pull-right text-success"></div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET -->
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- START LATEST TRANSACTIONS -->
+            <div class="block block-condensed">
+                <div class="app-heading">
+                    <div class="title">
+                        <h2>Staff</h2>
+                        <p>All Staff</p>
+                    </div>
+                </div>
+                <div class="block-content">
+                    <div class="table-responsive">
+                        <table class="table table-clean-paddings margin-bottom-0">
+                            <thead>
+                            <tr>
+                                <th width="70">Staff</th>
+                                <th width="50">Mobile</th>
+                                <th width="70">Email</th>
+                                <th width="150">Courses</th>
+                                <th width="55">Designation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for staff in staffs %}
+                                <tr>
+                                    <td>
+                                        <div class="contact contact-rounded contact-bordered contact-lg">
+                                            <img src="{{ staff.pic.url }}">
+                                            <div class="contact-container">
+                                                <a href="#">{{ staff.user.username }}</a>
+                                                <span>{{ staff.date_employed|date }}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{ staff.mobile }}</td>
+                                    <td>{{ staff.user.email }}</td>
+                                    <td>
+                                        {% for course in staff.staffcourses.courses.all %}
+                                            {{ course.name }},
+                                        {% endfor %}
+                                    </td>
+                                    <td><span class="label label-success label-bordered">{{ staff.designation }}</span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END LATEST TRANSACTIONS -->
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base/main_manager.html' %}
+{% load staticfiles %}
+
+{% block extra_style %}
+    <style>
+        .wrapper {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #122b47;
+        }
+
+        .wrapper img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .file-label {
+            width: 150px;
+            border-radius: 0;
+        }
+
+        #id_logo {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Staff Reg{% endblock %}
+{% block page_title %}Register Staff{% endblock %}
+{% block bread_crumb %}
+    <li><a href="{% url 'account:dashboard' %}">Dashboard</a></li>
+    <li>Add Agency</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="block block-condensed block-primary">
+                <div class="app-heading app-heading-small">
+                    <div class="title">
+                        <h5>New Staff Details</h5>
+                    </div>
+                </div>
+                <div class="block-content">
+                    <form class="form-horizontal" method="post" id="add-agency-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="col-sm-8">
+                            {% for field in form %}
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="name">{{ field.label }}: </label>
+                                    <div class="col-md-10">
+                                        {{ field }}
+                                    </div>
+                                    <span class="text-danger pull-right">{{ field.errors }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-4">
+                            {# Use this column if the registration details would contain the user image #}
+                        </div>
+
+
+                        <p class="" style="margin-top: 20px">
+                            <button type="reset" class="btn btn-default" data-dismiss="modal">Clear Fields</button>
+                            <button class="btn btn-success" data-dismiss="modal"
+                                    onclick="">
+                                Register
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_script %}
+    <script type="text/javascript">
+        function preview_image(file_input_id, preview_image_id) {
+            var ofReader = new FileReader();
+            ofReader.readAsDataURL(document.getElementById(file_input_id).files[0]);
+            ofReader.onload = function (ofReader) {
+                document.getElementById(preview_image_id).src = ofReader.target.result;
+            }
+        }
+
+        $('#id_logo').on('change', function () {
+            preview_image('id_logo', 'preview');
+        });
+    </script>
+{% endblock %}

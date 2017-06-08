@@ -1,0 +1,89 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TechTest - Login</title>
+
+    <!-- META SECTION -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- END META SECTION -->
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- EOF CSS INCLUDE -->
+</head>
+<body>
+
+<!-- APP WRAPPER -->
+<div class="app app-fh">
+
+    <!-- START APP CONTAINER -->
+    <div class="app-container"
+         style="background: url({% static 'assets/images/background/bg-1.jpg' %}) center center no-repeat fixed;">
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" style="padding-top: 40px">
+                <div class="block block-condensed block-primary">
+                    <div class="app-heading app-heading-small">
+                        <div class="title">Fill in your details to apply</div>
+                    </div>
+                    <div class="" style="padding: 10px">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="name">{{ field.label }}: </label>
+                                    <div class="col-md-10">
+                                        {{ field }}
+                                    </div>
+                                    <span class="text-danger pull-right">{{ field.errors }}</span>
+                                </div>
+                            {% endfor %}
+                            <div class="form-group">
+
+                                <div class="row" style="margin-bottom: 40px">
+                                    <div class="pull-right">
+                                        <div class="col-md-6 col-xs-6">
+                                            <button class="btn btn-success btn-block">Apply</button>
+                                        </div>
+                                        <div class="col-md-6 col-xs-6">
+                                            <a href="{% url 'account:login' %}"
+                                               class="btn btn-default btn-block">Login</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="app-login-box-footer" style="height: 40px; margin-bottom: 40px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END APP CONTAINER -->
+
+</div>
+<!-- END APP WRAPPER -->
+<!-- IMPORTANT SCRIPTS -->
+<script type="text/javascript" src="{% static 'js/vendor/jquery/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/jquery/jquery-migrate.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/jquery/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/bootstrap/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/moment/moment.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js' %}"></script>
+<!-- END IMPORTANT SCRIPTS -->
+<!-- APP SCRIPTS -->
+<script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/app_plugins.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/app_demo.js' %}"></script>
+<!-- END APP SCRIPTS -->
+</body>
+</html>

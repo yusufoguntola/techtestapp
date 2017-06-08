@@ -1,0 +1,16 @@
+<ul>
+    <li><a href="{% url 'account:dashboard' %}"><span class="icon-home"></span> Dashboard</a></li>
+    {% if request.user.is_superuser %}
+        <li class="has-children">
+            <a href="#"><span class="nav-icon-hexa">Cc</span> Courses</a>
+            <ul>
+                <li><a href="{% url 'school:course-reg' %}"><span class="nav-icon-hexa">Ac</span> Add Course</a></li>
+                <li><a href="{% url 'school:assign-course' %}"><span class="nav-icon-hexa">Ca</span> Assign Course</a>
+                </li>
+            </ul>
+        </li>
+    {% elif perms.accounts.c_staff %}
+        <li><a href="{% url 'staff:pending-students' %}"><span class="icon-user"></span> Pending Students</a></li>
+    {% elif perms.accounts.c_student %}
+    {% endif %}
+</ul>
