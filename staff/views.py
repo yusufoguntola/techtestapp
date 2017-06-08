@@ -13,7 +13,6 @@ from student.models import StudentApplication, Student
 
 
 @method_decorator(login_required, name='dispatch')
-@method_decorator(user_passes_test(permissions.is_staff), name='dispatch')
 class StaffRegView(CreateView):
     model = Staff
     form_class = RegistrationForm
